@@ -49,7 +49,7 @@
 <!--    <dependency>-->
 <!--      <groupId>org.jooq</groupId>-->
 <!--      <artifactId>jooq</artifactId>-->
-<!--      <version>3.16.21</version>-->
+<!--      <version>3.18.5</version>-->
 <!--    </dependency>-->
     <dependency>
       <groupId>io.quarkiverse.jooq</groupId>
@@ -117,8 +117,6 @@
 <!--              </generator>-->
 <!--            </configuration>-->
 <!--      </plugin>-->
-
-
       <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>

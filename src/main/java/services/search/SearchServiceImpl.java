@@ -1,10 +1,11 @@
-package org.acme;
+package services.search;
 
 import generated.market.tables.Adress;
 import generated.market.tables.Customer;
 import generated.market.tables.Fruit;
 import generated.market.tables.records.CustomerRecord;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.jooq.Condition;
 import org.jooq.Name;
 
 import java.time.ZoneId;
@@ -13,7 +14,7 @@ import java.time.ZoneId;
 @ApplicationScoped
 public class SearchServiceImpl implements SearchService {
 
-    SearchServiceImpl(){}
+    public SearchServiceImpl(){}
 
     @Override
     public Name getTableName(String name) {
@@ -24,7 +25,15 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public CustomerRecord convertToCustomerRecord(org.acme.Customer customer){
+    public Condition findCondition(int id, String tableName){
+        if(tableName.equals("adress")) return Adress.ADRESS.ID_ADRESS.eq(id);
+        if(tableName.equals("fruit")) return Fruit.FRUIT.ID_FRUIT.eq(id);
+        if(tableName.equals("customer")) return Customer.CUSTOMER.ID_CUSTOMER.eq(id);
+        return null;
+    }
+
+    @Override
+    public CustomerRecord convertToCustomerRecord(models.Customer customer){
         CustomerRecord customerRecord = new CustomerRecord();
         customerRecord.setIdCustomer(customer.getId_customer());
         customerRecord.setIdAdress(customer.getId_address());

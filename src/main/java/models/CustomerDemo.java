@@ -1,17 +1,17 @@
-package org.acme;
+package models;
 
-public class Zakaznik {
+public class CustomerDemo {
 
     private String firstName;
 
     private String lastName;
 
-    public Zakaznik(String firstName, String lastName) {
+    public CustomerDemo(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Zakaznik() {
+    public CustomerDemo() {
     }
 
     public String getFirstName() {

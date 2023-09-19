@@ -1,4 +1,4 @@
-package org.acme;
+package models;
 
 import jakarta.annotation.Nullable;
 

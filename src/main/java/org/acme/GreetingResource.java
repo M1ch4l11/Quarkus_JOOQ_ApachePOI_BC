@@ -1,9 +1,6 @@
 package org.acme;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.reactive.PartType;
@@ -22,13 +19,13 @@ public class GreetingResource {
     @Path("/add")
     public int pridaj(@PartType(MediaType.APPLICATION_JSON) String json){
 //        ObjectMapper objectMapper = new ObjectMapper();
-//        Zakaznik zakaznik = null;
+//        CustomerDemo customer = null;
 //        try {
-//            zakaznik = objectMapper.readValue(json, Zakaznik.class);
+//            customer = objectMapper.readValue(json, CustomerDemo.class);
 //        } catch (JsonProcessingException e) {
 //            throw new RuntimeException(e);
 //        }
-//        System.out.println("nieco " + zakaznik.getLastName());
+//        System.out.println("nieco " + customer.getLastName());
         return 1;
     }
 }
