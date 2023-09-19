@@ -13,8 +13,7 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.impl.DSL;
-import services.search.SearchService;
-import services.search.SearchServiceImpl;
+import services.jooq.JooqService;
 
 @RequestScoped
 @Path("/crud")
@@ -25,12 +24,11 @@ public class CRUDResource {
     DSLContext dsl;
 
     @Inject
-    SearchService service;
+    JooqService service;
 
     @GET
     @Path("/{tableName}/all")
     public Result<Record> getAll(@PathParam("tableName") String tableName ) {
-        System.out.println(new SearchServiceImpl().getTableName(tableName));
         return dsl.select()
                 .from("market." + service.getTableName(tableName))
                 .fetch();

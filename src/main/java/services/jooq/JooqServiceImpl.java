@@ -1,4 +1,4 @@
-package services.search;
+package services.jooq;
 
 import generated.market.tables.Adress;
 import generated.market.tables.Customer;
@@ -12,9 +12,9 @@ import java.time.ZoneId;
 
 
 @ApplicationScoped
-public class SearchServiceImpl implements SearchService {
+public class JooqServiceImpl implements JooqService {
 
-    public SearchServiceImpl(){}
+    public JooqServiceImpl(){}
 
     @Override
     public Name getTableName(String name) {

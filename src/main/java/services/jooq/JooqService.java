@@ -1,4 +1,4 @@
-package services.search;
+package services.jooq;
 
 import generated.market.tables.records.CustomerRecord;
 import models.Customer;
@@ -9,7 +9,7 @@ import java.beans.JavaBean;
 
 
 @JavaBean
-public interface SearchService {
+public interface JooqService {
     public Name getTableName(String name);
     public CustomerRecord convertToCustomerRecord(Customer customer);
     public Condition findCondition(int id, String tableName);
