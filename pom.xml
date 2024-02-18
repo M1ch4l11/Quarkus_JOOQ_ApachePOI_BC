@@ -13,12 +13,16 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <db.url>jdbc:postgresql://localhost:5432/market</db.url>
-    <db.username>app_user</db.username>
-    <db.password>password</db.password>
     <quarkus.platform.version>3.3.2</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
+    <db.url>jdbc:postgresql://localhost:5432/company</db.url>
+    <db.username>app_user</db.username>
+    <db.password>password</db.password>
+    <JOOQ.version>3.18.5</JOOQ.version>
+    <maven.plugin>3.7.2</maven.plugin>
+    <postgress.sql>42.5.4</postgress.sql>
+    <jackson.databind>2.15.0</jackson.databind>
   </properties>
 
   <dependencyManagement>
@@ -42,7 +46,7 @@
 <!--      <dependency>-->
 <!--        <groupId>org.jooq</groupId>-->
 <!--        <artifactId>jooq</artifactId>-->
-<!--        <version>3.18.5</version>-->
+<!--        <version>${JOOQ.version}</version>-->
 <!--      </dependency>-->
       <dependency>
         <groupId>io.quarkus</groupId>
@@ -69,7 +73,7 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>2.15.0</version>
+        <version>${jackson.databind}</version>
       </dependency>
       <dependency>
         <groupId>io.quarkus</groupId>
@@ -80,14 +84,12 @@
         <artifactId>quarkus-jdbc-postgresql</artifactId>
       </dependency>
   </dependencies>
-
   <build>
     <plugins>
-
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
-        <version>3.7.2</version>
+        <version>${maven.plugin}</version>
         <executions>
           <execution>
             <goals>
@@ -126,7 +128,7 @@
 <!--      <plugin>-->
 <!--        <groupId>org.jooq</groupId>-->
 <!--        <artifactId>jooq-codegen-maven</artifactId>-->
-<!--        <version>3.18.5</version>-->
+<!--        <version>${JOOQ.version}</version>-->
 
 <!--        <executions>-->
 <!--          <execution>-->
@@ -142,7 +144,7 @@
 <!--          <dependency>-->
 <!--            <groupId>org.postgresql</groupId>-->
 <!--            <artifactId>postgresql</artifactId>-->
-<!--            <version>42.5.4</version>-->
+<!--            <version>${postgress.sql}</version>-->
 <!--          </dependency>-->
 <!--        </dependencies>-->
 
@@ -150,7 +152,7 @@
 <!--          &lt;!&ndash; Your database connection details &ndash;&gt;-->
 <!--          <jdbc>-->
 <!--            <driver>org.postgresql.Driver</driver>-->
-<!--            <url>jdbc:postgresql://localhost:5432/market</url>-->
+<!--            <url>${db.url}</url>-->
 <!--            <user>${db.username}</user>-->
 <!--            <password>${db.password}</password>-->
 <!--          </jdbc>-->
@@ -159,15 +161,16 @@
 <!--              &lt;!&ndash; Database Type and Settings for PostgreSQL &ndash;&gt;-->
 <!--              <name>org.jooq.meta.postgres.PostgresDatabase</name>-->
 <!--              <includes>.*</includes>-->
-<!--&lt;!&ndash;              <inputSchema>MARKET</inputSchema>&ndash;&gt;-->
+<!--&lt;!&ndash;              <inputSchema>company</inputSchema>&ndash;&gt;-->
 <!--              <excludes/>-->
 <!--            </database>-->
 <!--            <generate>-->
 <!--              <records>true</records>-->
+<!--              <pojos>true</pojos>-->
 <!--            </generate>-->
 <!--            <target>-->
 <!--              &lt;!&ndash; Specify the package where generated classes will be placed &ndash;&gt;-->
-<!--              <packageName>generated</packageName>-->
+<!--              <packageName>model</packageName>-->
 <!--              &lt;!&ndash; Specify the directory where generated sources will be placed &ndash;&gt;-->
 <!--              <directory>src/main/java</directory>-->
 <!--            </target>-->
