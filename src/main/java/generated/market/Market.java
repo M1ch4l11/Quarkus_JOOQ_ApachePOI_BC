@@ -4,6 +4,7 @@
 package generated.market;
 
 
+import generated.DefaultCatalog;
 import generated.market.tables.Adress;
 import generated.market.tables.Customer;
 import generated.market.tables.Fruit;
@@ -56,6 +57,12 @@ public class Market extends SchemaImpl {
      */
     private Market() {
         super("market", null);
+    }
+
+
+    @Override
+    public Catalog getCatalog() {
+        return DefaultCatalog.DEFAULT_CATALOG;
     }
 
     @Override
