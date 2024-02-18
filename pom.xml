@@ -5,6 +5,7 @@
   <groupId>org.acme</groupId>
   <artifactId>code-with-quarkus</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+
   <properties>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
     <maven.compiler.release>17</maven.compiler.release>
@@ -12,10 +13,14 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+    <db.url>jdbc:postgresql://localhost:5432/market</db.url>
+    <db.username>app_user</db.username>
+    <db.password>password</db.password>
     <quarkus.platform.version>3.3.2</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -27,55 +32,97 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <dependencies>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-arc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-reactive</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-junit5</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <scope>test</scope>
-    </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.jooq</groupId>-->
-<!--      <artifactId>jooq</artifactId>-->
-<!--      <version>3.18.5</version>-->
-<!--    </dependency>-->
-    <dependency>
-      <groupId>io.quarkiverse.jooq</groupId>
-      <artifactId>quarkus-jooq-deployment</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-validator</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.15.0</version>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-rest-client-reactive-jsonb</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-postgresql</artifactId>
-    </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.jooq</groupId>
+        <artifactId>quarkus-jooq</artifactId>
+        <version>2.0.0</version>
+      </dependency>
+<!--      <dependency>-->
+<!--        <groupId>org.jooq</groupId>-->
+<!--        <artifactId>jooq</artifactId>-->
+<!--        <version>3.18.5</version>-->
+<!--      </dependency>-->
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-arc</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-resteasy-reactive</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-junit5</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-hibernate-validator</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.15.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-rest-client-reactive-jsonb</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-jdbc-postgresql</artifactId>
+      </dependency>
   </dependencies>
+
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>3.7.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+<!--      <plugin>-->
+<!--        <groupId>org.flywaydb</groupId>-->
+<!--        <artifactId>flyway-maven-plugin</artifactId>-->
+<!--        <version>10.8.0</version>-->
+
+<!--        &lt;!&ndash; Note that we're executing the Flyway plugin in the "generate-sources" phase &ndash;&gt;-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <phase>generate-sources</phase>-->
+<!--            <goals>-->
+<!--              <goal>migrate</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+
+<!--        &lt;!&ndash; Note that we need to prefix the db/migration path with filesystem: to prevent Flyway-->
+<!--             from looking for our migration scripts only on the classpath &ndash;&gt;-->
+<!--        <configuration>-->
+<!--          <url>${db.url}</url>-->
+<!--          <user>${db.username}</user>-->
+<!--&lt;!&ndash;          TODO: set location, find more info &ndash;&gt;-->
+<!--          <locations />-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+
+      <!--  Code Gen -->
 <!--      <plugin>-->
 <!--        <groupId>org.jooq</groupId>-->
 <!--        <artifactId>jooq-codegen-maven</artifactId>-->
@@ -90,33 +137,45 @@
 <!--            </goals>-->
 <!--          </execution>-->
 <!--        </executions>-->
-<!--            <configuration>-->
-<!--              &lt;!&ndash; Your database connection details &ndash;&gt;-->
-<!--              <jdbc>-->
-<!--                <driver>org.postgresql.Driver</driver>-->
-<!--                <url>jdbc:postgresql://localhost:5432/market</url>-->
-<!--                <user>app_user</user>-->
-<!--                <password>password</password>-->
-<!--              </jdbc>-->
-<!--              <generator>-->
-<!--                <database>-->
-<!--                  &lt;!&ndash; Database Type and Settings for PostgreSQL &ndash;&gt;-->
-<!--                  <name>org.jooq.meta.postgres.PostgresDatabase</name>-->
-<!--                  <includes>.*</includes>-->
-<!--                  <excludes/>-->
-<!--                </database>-->
-<!--                <generate>-->
-<!--                  <records>true</records>-->
-<!--                </generate>-->
-<!--                <target>-->
-<!--                  &lt;!&ndash; Specify the package where generated classes will be placed &ndash;&gt;-->
-<!--                  <packageName>generated</packageName>-->
-<!--                  &lt;!&ndash; Specify the directory where generated sources will be placed &ndash;&gt;-->
-<!--                  <directory>src/main/java</directory>-->
-<!--                </target>-->
-<!--              </generator>-->
-<!--            </configuration>-->
+
+<!--        <dependencies>-->
+<!--          <dependency>-->
+<!--            <groupId>org.postgresql</groupId>-->
+<!--            <artifactId>postgresql</artifactId>-->
+<!--            <version>42.5.4</version>-->
+<!--          </dependency>-->
+<!--        </dependencies>-->
+
+<!--        <configuration>-->
+<!--          &lt;!&ndash; Your database connection details &ndash;&gt;-->
+<!--          <jdbc>-->
+<!--            <driver>org.postgresql.Driver</driver>-->
+<!--            <url>jdbc:postgresql://localhost:5432/market</url>-->
+<!--            <user>${db.username}</user>-->
+<!--            <password>${db.password}</password>-->
+<!--          </jdbc>-->
+<!--          <generator>-->
+<!--            <database>-->
+<!--              &lt;!&ndash; Database Type and Settings for PostgreSQL &ndash;&gt;-->
+<!--              <name>org.jooq.meta.postgres.PostgresDatabase</name>-->
+<!--              <includes>.*</includes>-->
+<!--&lt;!&ndash;              <inputSchema>MARKET</inputSchema>&ndash;&gt;-->
+<!--              <excludes/>-->
+<!--            </database>-->
+<!--            <generate>-->
+<!--              <records>true</records>-->
+<!--            </generate>-->
+<!--            <target>-->
+<!--              &lt;!&ndash; Specify the package where generated classes will be placed &ndash;&gt;-->
+<!--              <packageName>generated</packageName>-->
+<!--              &lt;!&ndash; Specify the directory where generated sources will be placed &ndash;&gt;-->
+<!--              <directory>src/main/java</directory>-->
+<!--            </target>-->
+<!--          </generator>-->
+<!--        </configuration>-->
 <!--      </plugin>-->
+<!--      -->
+
       <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
@@ -132,6 +191,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${compiler-plugin.version}</version>
@@ -141,16 +201,17 @@
           </compilerArgs>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
         <configuration>
           <systemPropertyVariables>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-            <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
@@ -164,7 +225,6 @@
               <systemPropertyVariables>
                 <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                <maven.home>${maven.home}</maven.home>
               </systemPropertyVariables>
             </configuration>
           </execution>
