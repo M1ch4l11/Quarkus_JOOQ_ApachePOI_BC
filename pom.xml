@@ -83,7 +83,13 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-jdbc-postgresql</artifactId>
       </dependency>
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>4.1.2</version>
+      </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -119,12 +125,11 @@
 <!--        <configuration>-->
 <!--          <url>${db.url}</url>-->
 <!--          <user>${db.username}</user>-->
-<!--&lt;!&ndash;          TODO: set location, find more info &ndash;&gt;-->
 <!--          <locations />-->
 <!--        </configuration>-->
 <!--      </plugin>-->
 
-      <!--  Code Gen -->
+<!--        Code Gen-->
 <!--      <plugin>-->
 <!--        <groupId>org.jooq</groupId>-->
 <!--        <artifactId>jooq-codegen-maven</artifactId>-->

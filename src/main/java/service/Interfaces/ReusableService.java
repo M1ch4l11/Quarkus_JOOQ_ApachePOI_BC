@@ -1,5 +1,6 @@
 package service.Interfaces;
 
+import model.Filter;
 import model.company.tables.pojos.Employees;
 import model.company.tables.pojos.Products;
 import model.company.tables.records.EmployeesRecord;
@@ -19,4 +20,8 @@ public interface ReusableService {
     Condition findConditionCharId(String id, String tableName);
 
     public String getJsonAsString(List<Map<String, Object>> jooq);
+
+    public String getJsonAsStringColumns(List<String> jooq);
+
+    public Condition createCondition(Filter filters);
 }

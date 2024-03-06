@@ -7,7 +7,6 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import model.company.tables.Products;
 import model.company.tables.pojos.Employees;
 import model.company.tables.records.EmployeesRecord;
 import org.jboss.resteasy.reactive.PartType;
