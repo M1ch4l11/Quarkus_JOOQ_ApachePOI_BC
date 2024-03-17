@@ -6,20 +6,28 @@ import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Name;
 import org.jooq.impl.DSL;
-import service.Interfaces.DSLGlobalService;
-
+import service.Interfaces.DSLControllerService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class DSLGlobalServiceImpl implements DSLGlobalService {
+public class DSLControllerServiceImpl implements DSLControllerService {
     @Inject
     private DSLContext dsl;
     @Override
     public List<Map<String, Object>> getAllData(Name tableName) {
         return dsl.select()
                 .from("company." + tableName)
+                .fetch()
+                .map( o -> o.intoMap())
+                .stream().collect(Collectors.toList());
+    }
+    @Override
+    public List<Map<String, Object>> getAllDataForTable(Name tableName) {
+        return dsl.select()
+                .from("company." + tableName)
+                .limit(10)
                 .fetch()
                 .map( o -> o.intoMap())
                 .stream().collect(Collectors.toList());

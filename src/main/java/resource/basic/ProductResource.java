@@ -1,4 +1,4 @@
-package resource;
+package resource.basic;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;

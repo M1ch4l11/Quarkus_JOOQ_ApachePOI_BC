@@ -1,10 +1,7 @@
 package service.Interfaces;
 
-import model.Filter;
-import model.company.tables.pojos.Employees;
-import model.company.tables.pojos.Products;
-import model.company.tables.records.EmployeesRecord;
-import model.company.tables.records.ProductsRecord;
+import CustomModels.Filter;
+import CustomModels.SearchFilter;
 import org.jooq.Condition;
 import org.jooq.Name;
 
@@ -19,9 +16,9 @@ public interface ReusableService {
 
     Condition findConditionCharId(String id, String tableName);
 
-    public String getJsonAsString(List<Map<String, Object>> jooq);
-
-    public String getJsonAsStringColumns(List<String> jooq);
-
     public Condition createCondition(Filter filters);
+
+    Condition createAuthCondition(SearchFilter filters);
+
+    public Condition createSearchCondition(SearchFilter filters);
 }

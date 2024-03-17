@@ -17,28 +17,13 @@ public class DSLProductServiceImpl implements DSLProductService {
     @Override
     public int createProduct(Name tableName, ProductsRecord productsRecord) {
         return dsl.insertInto( DSL.table("company."+ tableName))
-                .set(Products.PRODUCTS.PRODUCTCODE, productsRecord.getProductcode())
-                .set(Products.PRODUCTS.PRODUCTLINE , productsRecord.getProductline())
-                .set(Products.PRODUCTS.PRODUCTNAME, productsRecord.getProductname())
-                .set(Products.PRODUCTS.PRODUCTSCALE, productsRecord.getProductscale())
-                .set(Products.PRODUCTS.PRODUCTVENDOR, productsRecord.getProductvendor())
-                .set(Products.PRODUCTS.PRODUCTDESCRIPTION, productsRecord.getProductdescription())
-                .set(Products.PRODUCTS.QUANTITYINSTOCK, productsRecord.getQuantityinstock())
-                .set(Products.PRODUCTS.BUYPRICE, productsRecord.getBuyprice())
-                .set(Products.PRODUCTS.MSRP, productsRecord.getMsrp())
+                .set(productsRecord)
                 .execute();
     }
     @Override
     public int updateProduct(Name tableName, Condition findIdCondition, ProductsRecord productsRecord) {
         return dsl.update(DSL.table("company."+ tableName))
-                .set(Products.PRODUCTS.PRODUCTLINE , productsRecord.getProductline())
-                .set(Products.PRODUCTS.PRODUCTNAME, productsRecord.getProductname())
-                .set(Products.PRODUCTS.PRODUCTSCALE, productsRecord.getProductscale())
-                .set(Products.PRODUCTS.PRODUCTVENDOR, productsRecord.getProductvendor())
-                .set(Products.PRODUCTS.PRODUCTDESCRIPTION, productsRecord.getProductdescription())
-                .set(Products.PRODUCTS.QUANTITYINSTOCK, productsRecord.getQuantityinstock())
-                .set(Products.PRODUCTS.BUYPRICE, productsRecord.getBuyprice())
-                .set(Products.PRODUCTS.MSRP, productsRecord.getMsrp())
+                .set(productsRecord)
                 .where(findIdCondition)
                 .execute();
     }

@@ -1,4 +1,4 @@
-package resource;
+package resource.basic;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,7 +27,7 @@ public class EmployeeResource {
     public int setRow(@PartType(MediaType.APPLICATION_JSON) String json) throws JsonProcessingException {
         Employees employee = new ObjectMapper().readValue(json, model.company.tables.pojos.Employees.class);
         EmployeesRecord employeesRecord = dslEmployeeService.convertToEmployeeRecord(employee);
-        return dslEmployeeService.createEmployee(reusableService.getTableName("employee"), employeesRecord );
+        return dslEmployeeService.createEmployee(reusableService.getTableName("employees"), employeesRecord );
     }
 
     @PUT
@@ -35,6 +35,6 @@ public class EmployeeResource {
     public int updateRow(@PartType(MediaType.APPLICATION_JSON) String json) throws JsonProcessingException {
         Employees employee = new ObjectMapper().readValue(json, Employees.class);
         EmployeesRecord employeeRecord = dslEmployeeService.convertToEmployeeRecord(employee);
-        return dslEmployeeService.updateEmployee(reusableService.getTableName("employee") , reusableService.findCondition(employeeRecord.getEmployeenumber(), "employee"), employeeRecord);
+        return dslEmployeeService.updateEmployee(reusableService.getTableName("employees") , reusableService.findCondition(employeeRecord.getEmployeenumber(), "employees"), employeeRecord);
     }
 }

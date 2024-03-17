@@ -1,6 +1,5 @@
 package service.Interfaces;
 
-import model.company.tables.records.EmployeesRecord;
 import model.company.tables.records.ProductsRecord;
 import org.jooq.Condition;
 import org.jooq.Name;
