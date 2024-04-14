@@ -11,16 +11,19 @@
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+<!--    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>-->
+    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+<!--    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>-->
+    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>3.3.2</quarkus.platform.version>
+<!--    <quarkus.platform.version>3.0.1.Final</quarkus.platform.version>-->
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
     <db.url>jdbc:postgresql://localhost:5432/company</db.url>
     <db.username>app_user</db.username>
     <db.password>password</db.password>
-    <JOOQ.version>3.18.5</JOOQ.version>
-    <maven.plugin>3.7.2</maven.plugin>
+    <JOOQ.version>3.18.3</JOOQ.version>
+    <maven.plugin>3.8.0</maven.plugin>
     <postgress.sql>42.5.4</postgress.sql>
     <jackson.databind>2.15.0</jackson.databind>
   </properties>
@@ -43,11 +46,6 @@
         <artifactId>quarkus-jooq</artifactId>
         <version>2.0.0</version>
       </dependency>
-<!--      <dependency>-->
-<!--        <groupId>org.jooq</groupId>-->
-<!--        <artifactId>jooq</artifactId>-->
-<!--        <version>${JOOQ.version}</version>-->
-<!--      </dependency>-->
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-arc</artifactId>
@@ -55,6 +53,7 @@
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-resteasy-reactive</artifactId>
+<!--        <version>3.0.0.Final</version>-->
       </dependency>
       <dependency>
         <groupId>io.quarkus</groupId>
@@ -66,10 +65,15 @@
         <artifactId>rest-assured</artifactId>
         <scope>test</scope>
       </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId>
-        <artifactId>quarkus-hibernate-validator</artifactId>
-      </dependency>
+<!--      <dependency>-->
+<!--        <groupId>io.quarkus</groupId>-->
+<!--        <artifactId>quarkus-hibernate-validator</artifactId>-->
+<!--      </dependency>-->
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
@@ -84,9 +88,14 @@
         <artifactId>quarkus-jdbc-postgresql</artifactId>
       </dependency>
       <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi-ooxml</artifactId>
-        <version>4.1.2</version>
+        <groupId>io.quarkiverse.poi</groupId>
+        <artifactId>quarkus-poi</artifactId>
+        <version>2.0.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>1.26.1</version>
       </dependency>
   </dependencies>
 
@@ -105,31 +114,7 @@
         </executions>
       </plugin>
 
-<!--      <plugin>-->
-<!--        <groupId>org.flywaydb</groupId>-->
-<!--        <artifactId>flyway-maven-plugin</artifactId>-->
-<!--        <version>10.8.0</version>-->
-
-<!--        &lt;!&ndash; Note that we're executing the Flyway plugin in the "generate-sources" phase &ndash;&gt;-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <phase>generate-sources</phase>-->
-<!--            <goals>-->
-<!--              <goal>migrate</goal>-->
-<!--            </goals>-->
-<!--          </execution>-->
-<!--        </executions>-->
-
-<!--        &lt;!&ndash; Note that we need to prefix the db/migration path with filesystem: to prevent Flyway-->
-<!--             from looking for our migration scripts only on the classpath &ndash;&gt;-->
-<!--        <configuration>-->
-<!--          <url>${db.url}</url>-->
-<!--          <user>${db.username}</user>-->
-<!--          <locations />-->
-<!--        </configuration>-->
-<!--      </plugin>-->
-
-<!--        Code Gen-->
+<!-- Code Gen -->
 <!--      <plugin>-->
 <!--        <groupId>org.jooq</groupId>-->
 <!--        <artifactId>jooq-codegen-maven</artifactId>-->
@@ -154,7 +139,6 @@
 <!--        </dependencies>-->
 
 <!--        <configuration>-->
-<!--          &lt;!&ndash; Your database connection details &ndash;&gt;-->
 <!--          <jdbc>-->
 <!--            <driver>org.postgresql.Driver</driver>-->
 <!--            <url>${db.url}</url>-->
@@ -163,10 +147,8 @@
 <!--          </jdbc>-->
 <!--          <generator>-->
 <!--            <database>-->
-<!--              &lt;!&ndash; Database Type and Settings for PostgreSQL &ndash;&gt;-->
 <!--              <name>org.jooq.meta.postgres.PostgresDatabase</name>-->
 <!--              <includes>.*</includes>-->
-<!--&lt;!&ndash;              <inputSchema>company</inputSchema>&ndash;&gt;-->
 <!--              <excludes/>-->
 <!--            </database>-->
 <!--            <generate>-->
@@ -174,9 +156,7 @@
 <!--              <pojos>true</pojos>-->
 <!--            </generate>-->
 <!--            <target>-->
-<!--              &lt;!&ndash; Specify the package where generated classes will be placed &ndash;&gt;-->
 <!--              <packageName>model</packageName>-->
-<!--              &lt;!&ndash; Specify the directory where generated sources will be placed &ndash;&gt;-->
 <!--              <directory>src/main/java</directory>-->
 <!--            </target>-->
 <!--          </generator>-->

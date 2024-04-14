@@ -20,15 +20,13 @@ import service.Interfaces.ReusableService;
 @Produces(MediaType.APPLICATION_JSON)
 public class SearchResource {
     @Inject
-    DSLSearchService searchService;
-    @Inject
     ParserService parserService;
-
     @Inject
     ReusableService reusableService;
-
     @Inject
     DSLControllerService dslControllerService;
+    @Inject
+    DSLSearchService searchService;
 
     // return  pagination object & table rows
     @PUT

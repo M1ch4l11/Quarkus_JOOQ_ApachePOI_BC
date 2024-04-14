@@ -11,4 +11,6 @@ public interface DSLEmployeeService {
     public int createEmployee(Name tableName, EmployeesRecord employeeRecord);
 
     EmployeesRecord convertToEmployeeRecord(model.company.tables.pojos.Employees employee);
+
+    boolean containsSameEmployee(Name tableName, String email);
 }

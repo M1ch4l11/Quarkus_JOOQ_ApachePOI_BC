@@ -11,7 +11,6 @@ import CustomModels.Filter;
 import org.jboss.resteasy.reactive.PartType;
 import service.Interfaces.DSLExportService;
 import service.Interfaces.ParserService;
-import service.Interfaces.ReusableService;
 import java.io.*;
 import java.util.List;
 
@@ -47,14 +46,14 @@ public class ExportResource {
     @PUT
     @Path("/{tableName}/excel")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response geExcelTable(@PathParam("tableName") String tableName, @PartType(MediaType.APPLICATION_JSON) String json) throws JsonProcessingException, FileNotFoundException {
-        Filter filters = new ObjectMapper().readValue(json, Filter.class);
-        InputStream inputStream = new FileInputStream("Main.xlsx");
-        if(dslExportService.createExcel(filters, tableName)) {
-            return Response.ok(inputStream)
-                    .header("Content-Disposition", "attachment; filename=Main")
-                    .build();
+    public Response getExcelTable(@PathParam("tableName") String tableName, @PartType(MediaType.APPLICATION_JSON) String json) throws IOException {
+            Filter filters = new ObjectMapper().readValue(json, Filter.class);
+            InputStream inputStream = new FileInputStream("Main.xlsx");
+            if(dslExportService.createExcel(filters, tableName)) {
+                return Response.ok(inputStream)
+                        .header("Content-Disposition", "attachment; filename=Main")
+                        .build();
+            }
+            return Response.serverError().build();
         }
-        return Response.serverError().build();
     }
-}

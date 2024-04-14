@@ -1,6 +1,4 @@
 package resource.basic;
-
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;

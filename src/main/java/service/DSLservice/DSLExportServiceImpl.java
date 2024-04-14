@@ -23,7 +23,6 @@ import static org.jooq.impl.DSL.field;
 public class DSLExportServiceImpl implements DSLExportService {
     @Inject
     DSLContext dsl;
-
     @Inject
     ReusableService reusableService;
     @Override
@@ -55,10 +54,9 @@ public class DSLExportServiceImpl implements DSLExportService {
                 .stream().collect(Collectors.toList());
     }
 
-    // clean up
     @Override
     public Boolean createExcel(Filter filters, String tableName) {
-        List<String> columnsNameRow =  this.getAllColumnsName(tableName);
+        List<String> columnsNameRow = this.getAllColumnsName(tableName);
         List<Map<String, Object>> filteredTable = getFilteredTable(filters, tableName);
 
         Workbook workbook = new XSSFWorkbook();
@@ -67,10 +65,6 @@ public class DSLExportServiceImpl implements DSLExportService {
 
         IntStream.range(0, columnsNameRow.size())
                 .forEach(i -> headerRow.createCell(i + 1).setCellValue(columnsNameRow.get(i)));
-
-//        for ( int i = 0; i < columnsNameRow.size(); i++){
-//            headerRow.createCell(i+1).setCellValue(columnsNameRow.get(i));
-//        }
 
         IntStream.range(0, filteredTable.size())
                 .forEach(index -> {
@@ -82,22 +76,16 @@ public class DSLExportServiceImpl implements DSLExportService {
                     }
                 });
 
-//        int rowCount = 2;
-//        for (Map<String, Object> map : filteredTable) {
-//            Row dataRow = sheet.createRow(rowCount);
-//            rowCount++;
-//            int poc = 1;
-//            for (Map.Entry<String, Object> entry : map.entrySet()) {
-//                dataRow.createCell(poc++).setCellValue(""+entry.getValue());
-//            }
-//        }
-
         try {
             FileOutputStream fileOut = new FileOutputStream("Main.xlsx");
             workbook.write(fileOut);
             workbook.close();
+            if(fileOut.getChannel().isOpen()){
+                System.out.println("Excel file written successfully. ");
+            }
             return true;
         } catch (Exception e) {
+            System.out.println("Error writing Excel file: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

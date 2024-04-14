@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class DSLControllerServiceImpl implements DSLControllerService {
     @Inject
-    private DSLContext dsl;
+    DSLContext dsl;
     @Override
     public List<Map<String, Object>> getAllData(Name tableName) {
         return dsl.select()

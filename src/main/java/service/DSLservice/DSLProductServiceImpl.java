@@ -2,7 +2,6 @@ package service.DSLservice;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import model.company.tables.Products;
 import model.company.tables.records.ProductsRecord;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
@@ -15,15 +14,15 @@ public class DSLProductServiceImpl implements DSLProductService {
     @Inject
     private DSLContext dsl;
     @Override
-    public int createProduct(Name tableName, ProductsRecord productsRecord) {
+    public int createProduct(Name tableName, ProductsRecord productRecord) {
         return dsl.insertInto( DSL.table("company."+ tableName))
-                .set(productsRecord)
+                .set(productRecord)
                 .execute();
     }
     @Override
-    public int updateProduct(Name tableName, Condition findIdCondition, ProductsRecord productsRecord) {
+    public int updateProduct(Name tableName, Condition findIdCondition, ProductsRecord productRecord) {
         return dsl.update(DSL.table("company."+ tableName))
-                .set(productsRecord)
+                .set(productRecord)
                 .where(findIdCondition)
                 .execute();
     }

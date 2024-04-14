@@ -1,5 +1,8 @@
 package CustomModels;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class SearchFilter {
 
     private String columnNameFirst;

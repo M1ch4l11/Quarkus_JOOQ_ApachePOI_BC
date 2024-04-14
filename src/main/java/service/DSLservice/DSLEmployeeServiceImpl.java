@@ -24,6 +24,9 @@ public class DSLEmployeeServiceImpl implements DSLEmployeeService {
 
     @Override
     public int createEmployee(Name tableName, EmployeesRecord employeeRecord) {
+        if(containsSameEmployee(tableName, employeeRecord.getEmail())){
+            return 0;
+        }
         return dsl.insertInto( DSL.table("company."+ tableName))
                 .set(employeeRecord)
                 .execute();
@@ -41,5 +44,14 @@ public class DSLEmployeeServiceImpl implements DSLEmployeeService {
         employeesRecord.setReportsto(employee.getReportsto());
         employeesRecord.setJobtitle(employee.getJobtitle());
         return employeesRecord;
+    }
+
+    @Override
+    public boolean containsSameEmployee(Name tableName, String email){
+        return dsl.select()
+                .from("company." + tableName)
+                .where(Employees.EMPLOYEES.EMAIL.eq(email))
+                .fetch()
+                .isNotEmpty();
     }
 }

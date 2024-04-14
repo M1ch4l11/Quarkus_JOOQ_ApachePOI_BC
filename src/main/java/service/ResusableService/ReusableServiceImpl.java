@@ -59,10 +59,8 @@ public class ReusableServiceImpl implements ReusableService {
                 case "more" -> { return field.gt(isInteger(firstConditionValue) ? Integer.parseInt(firstConditionValue) : firstConditionValue)
                                             .and(field.le(isInteger(secondConditionValue) ? Integer.parseInt(secondConditionValue) : secondConditionValue)); }
                 case "equals" -> { return field.eq(isInteger(firstConditionValue) ? Integer.parseInt(firstConditionValue) : firstConditionValue)
-                        .or(field.eq(isInteger(secondConditionValue) ? Integer.parseInt(secondConditionValue) : secondConditionValue)); }
-
+                                            .or(field.eq(isInteger(secondConditionValue) ? Integer.parseInt(secondConditionValue) : secondConditionValue)); }
                 default -> {
-                    // todo reusable error handling
                     return null;
                 }
             }
@@ -79,6 +77,7 @@ public class ReusableServiceImpl implements ReusableService {
             }
         }
     }
+
     public boolean isInteger(String conditionValue) {
         try {
             Integer.parseInt(conditionValue);
