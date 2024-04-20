@@ -11,12 +11,9 @@
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-<!--    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>-->
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-<!--    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>-->
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>3.3.2</quarkus.platform.version>
-<!--    <quarkus.platform.version>3.0.1.Final</quarkus.platform.version>-->
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
     <db.url>jdbc:postgresql://localhost:5432/company</db.url>
@@ -53,7 +50,6 @@
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-resteasy-reactive</artifactId>
-<!--        <version>3.0.0.Final</version>-->
       </dependency>
       <dependency>
         <groupId>io.quarkus</groupId>
@@ -65,15 +61,11 @@
         <artifactId>rest-assured</artifactId>
         <scope>test</scope>
       </dependency>
-<!--      <dependency>-->
-<!--        <groupId>io.quarkus</groupId>-->
-<!--        <artifactId>quarkus-hibernate-validator</artifactId>-->
-<!--      </dependency>-->
-    <dependency>
-      <groupId>jakarta.persistence</groupId>
-      <artifactId>jakarta.persistence-api</artifactId>
-      <version>3.1.0</version>
-    </dependency>
+      <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>3.1.0</version>
+      </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
